@@ -10,8 +10,8 @@ import dog.snow.androidrecruittest.repository.service.PhotoService
 import dog.snow.androidrecruittest.repository.service.UserService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
-import retrofit2.await
 import java.util.*
 
 class SplashActivity : AppCompatActivity(R.layout.splash_activity) {
@@ -20,17 +20,14 @@ class SplashActivity : AppCompatActivity(R.layout.splash_activity) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.splash_activity)
 
+        val user = GlobalScope.launch(Dispatchers.Default) { showError(UserService().getUser(1).await().toString()) }
+    }
+
+    private suspend fun beginSearch() {
         val userService = UserService()
-            val response = userService.getUser(1)
-            showError(response.toString())
-    }
+        val user = GlobalScope.async(Dispatchers.Default) { userService.getUser(1) }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-
-    }
-
-    private fun beginSearch() {
-
+        val finalUser = user.await()
     }
 
     private fun showError(errorMessage: String?) {
