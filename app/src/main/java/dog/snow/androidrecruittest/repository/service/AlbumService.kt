@@ -2,15 +2,13 @@ package dog.snow.androidrecruittest.repository.service
 
 import dog.snow.androidrecruittest.BuildConfig
 import dog.snow.androidrecruittest.repository.model.RawAlbum
-import dog.snow.androidrecruittest.repository.network.ConnectivityInterceptorImpl
+import dog.snow.androidrecruittest.repository.service.network.ConnectivityInterceptorImpl
 import kotlinx.coroutines.Deferred
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
-import retrofit2.http.Headers
 import retrofit2.http.Path
 
 const val BASE_URL = "https://jsonplaceholder.typicode.com/"
