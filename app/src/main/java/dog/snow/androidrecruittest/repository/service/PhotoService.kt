@@ -3,6 +3,7 @@ package dog.snow.androidrecruittest.repository.service
 import dog.snow.androidrecruittest.BuildConfig
 import dog.snow.androidrecruittest.repository.model.RawPhoto
 import dog.snow.androidrecruittest.repository.service.network.ConnectivityInterceptorImpl
+import dog.snow.androidrecruittest.repository.service.network.TimeoutInterceptor
 import kotlinx.coroutines.Deferred
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -10,6 +11,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
+import java.util.concurrent.TimeUnit
 
 interface PhotoService {
 
@@ -26,6 +28,9 @@ interface PhotoService {
                     level = if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE
                 })
                 .addInterceptor(connectivityInterceptorImpl)
+                .connectTimeout(10, TimeUnit.SECONDS)
+                .readTimeout(15, TimeUnit.SECONDS)
+                .addInterceptor(TimeoutInterceptor())
                 .build()
 
             val retrofit = Retrofit.Builder().client(client)

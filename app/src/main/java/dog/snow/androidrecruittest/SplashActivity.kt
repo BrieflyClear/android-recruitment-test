@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dog.snow.androidrecruittest.repository.service.UserService
+import dog.snow.androidrecruittest.repository.service.network.ConnectivityInterceptorImpl
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
@@ -15,14 +16,9 @@ class SplashActivity : AppCompatActivity(R.layout.splash_activity) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.splash_activity)
 
-        val user = GlobalScope.launch(Dispatchers.Default) { showError(UserService().getUser(1).await().toString()) }
-    }
-
-    private suspend fun beginSearch() {
-        val userService = UserService()
-        val user = GlobalScope.async(Dispatchers.Default) { userService.getUser(1) }
-
-        val finalUser = user.await()
+        val service = UserService(ConnectivityInterceptorImpl(applicationContext))
+        val user = GlobalScope.launch { val repo = service.getUserAsync(1).await()
+        println(repo.toString()) }
     }
 
     private fun showError(errorMessage: String?) {
