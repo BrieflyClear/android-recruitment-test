@@ -1,5 +1,6 @@
 package dog.snow.androidrecruittest.repository.service
 
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import dog.snow.androidrecruittest.BuildConfig
 import dog.snow.androidrecruittest.repository.model.RawPhoto
 import dog.snow.androidrecruittest.repository.service.network.ConnectivityInterceptorImpl
@@ -10,12 +11,13 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Headers
 import retrofit2.http.Query
 import java.util.concurrent.TimeUnit
 
 interface PhotoService {
 
-    //@Headers("User-agent: Cool app")
+    @Headers("User-agent: Cool app")
     @GET("/photos")
     fun getPhotosAsync(@Query("_limit") limit : Int ? = 100) : Deferred<List<RawPhoto>>
 
@@ -36,6 +38,7 @@ interface PhotoService {
             val retrofit = Retrofit.Builder().client(client)
                 .addConverterFactory(
                     GsonConverterFactory.create())
+                .addCallAdapterFactory(CoroutineCallAdapterFactory())
                 .baseUrl(BASE_URL)
                 .build()
 

@@ -3,8 +3,11 @@ package dog.snow.androidrecruittest
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import dog.snow.androidrecruittest.repository.service.AlbumService
+import dog.snow.androidrecruittest.repository.service.PhotoService
 import dog.snow.androidrecruittest.repository.service.UserService
 import dog.snow.androidrecruittest.repository.service.network.ConnectivityInterceptorImpl
+import dog.snow.androidrecruittest.repository.service.network.NetworkDataSourceImpl
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
@@ -16,9 +19,11 @@ class SplashActivity : AppCompatActivity(R.layout.splash_activity) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.splash_activity)
 
-        val service = UserService(ConnectivityInterceptorImpl(applicationContext))
-        val user = GlobalScope.launch { val repo = service.getUserAsync(1).await()
-        println(repo.toString()) }
+        val us = UserService(ConnectivityInterceptorImpl(applicationContext))
+        val ps = PhotoService(ConnectivityInterceptorImpl(applicationContext))
+        val als = AlbumService(ConnectivityInterceptorImpl(applicationContext))
+        val dataSource = NetworkDataSourceImpl(ps,  als, us)
+        val data = GlobalScope.launch { val value = dataSource.fetchData()  }
     }
 
     private fun showError(errorMessage: String?) {
