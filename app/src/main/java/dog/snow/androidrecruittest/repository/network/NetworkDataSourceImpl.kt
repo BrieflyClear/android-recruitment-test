@@ -1,4 +1,4 @@
-package dog.snow.androidrecruittest.repository.service.network
+package dog.snow.androidrecruittest.repository.network
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -6,9 +6,9 @@ import dog.snow.androidrecruittest.repository.DataCacheController
 import dog.snow.androidrecruittest.repository.model.RawAlbum
 import dog.snow.androidrecruittest.repository.model.RawPhoto
 import dog.snow.androidrecruittest.repository.model.RawUser
-import dog.snow.androidrecruittest.repository.service.AlbumService
-import dog.snow.androidrecruittest.repository.service.PhotoService
-import dog.snow.androidrecruittest.repository.service.UserService
+import dog.snow.androidrecruittest.repository.network.service.AlbumService
+import dog.snow.androidrecruittest.repository.network.service.PhotoService
+import dog.snow.androidrecruittest.repository.network.service.UserService
 
 class NetworkDataSourceImpl(
     private val photoService: PhotoService, private val albumService: AlbumService, private val userService: UserService)
@@ -25,7 +25,7 @@ class NetworkDataSourceImpl(
         get() =  _downloadedUserData
 
     override suspend fun fetchData(photoLimit: Int?) {
-        val fetchedPhotos = photoService.getPhotosAsync(photoLimit).await()
+        /*val fetchedPhotos = photoService.getPhotosAsync(photoLimit).await()
         _downloadedPhotoData.postValue(fetchedPhotos)
         val albumIds = mutableListOf<Int>()
         fetchedPhotos.forEach{if(!albumIds.contains(it.albumId)) albumIds.add(it.albumId)}
@@ -45,6 +45,6 @@ class NetworkDataSourceImpl(
 
         DataCacheController.rawAlbums = _downloadedAlbumData.value
         DataCacheController.rawUsers = _downloadedUserData.value
-        DataCacheController.rawPhotos = _downloadedPhotoData.value
+        DataCacheController.rawPhotos = _downloadedPhotoData.value*/
     }
 }

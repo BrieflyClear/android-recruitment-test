@@ -1,10 +1,11 @@
-package dog.snow.androidrecruittest.repository.service
+package dog.snow.androidrecruittest.repository.network.service
 
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import dog.snow.androidrecruittest.BuildConfig
 import dog.snow.androidrecruittest.repository.model.RawAlbum
-import dog.snow.androidrecruittest.repository.service.network.ConnectivityInterceptorImpl
-import dog.snow.androidrecruittest.repository.service.network.TimeoutInterceptor
+import dog.snow.androidrecruittest.repository.network.ConnectivityInterceptorImpl
+import dog.snow.androidrecruittest.repository.network.TimeoutInterceptor
+import io.reactivex.Observable
 import kotlinx.coroutines.Deferred
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -21,7 +22,7 @@ interface AlbumService {
 
     @Headers("User-agent: Cool app")
     @GET("/albums/{id}")
-    fun getAlbumAsync(@Path("id") id : Int) : Deferred<RawAlbum>
+    fun getAlbum(@Path("id") id : Int) : Observable<RawAlbum>
 
     companion object {
         operator fun invoke(

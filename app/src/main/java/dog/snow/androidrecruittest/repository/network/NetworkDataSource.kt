@@ -1,4 +1,4 @@
-package dog.snow.androidrecruittest.repository.service.network
+package dog.snow.androidrecruittest.repository.network
 
 import androidx.lifecycle.LiveData
 import dog.snow.androidrecruittest.repository.model.RawAlbum

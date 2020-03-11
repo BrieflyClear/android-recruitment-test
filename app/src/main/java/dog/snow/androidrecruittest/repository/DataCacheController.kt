@@ -6,8 +6,7 @@ import dog.snow.androidrecruittest.repository.model.RawUser
 
 object DataCacheController {
 
-    var rawPhotos : List<RawPhoto>?= null
-    var rawAlbums : List<RawAlbum> ?= null
-    var rawUsers : List<RawUser> ?= null
-
+    var rawPhotos : MutableList<RawPhoto> = mutableListOf()
+    var rawAlbums : MutableList<RawAlbum> = mutableListOf()
+    var rawUsers : MutableList<RawUser> = mutableListOf()
 }

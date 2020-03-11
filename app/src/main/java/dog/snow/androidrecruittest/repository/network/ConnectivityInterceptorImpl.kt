@@ -1,9 +1,9 @@
-package dog.snow.androidrecruittest.repository.service.network
+package dog.snow.androidrecruittest.repository.network
 
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import android.os.Build
+import dog.snow.androidrecruittest.repository.model.RawPhoto
 import okhttp3.Interceptor
 import okhttp3.Response
 

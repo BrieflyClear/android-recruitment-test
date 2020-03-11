@@ -1,4 +1,4 @@
-package dog.snow.androidrecruittest.repository.service.network
+package dog.snow.androidrecruittest.repository.network
 
 import android.util.Log
 import okhttp3.Interceptor
